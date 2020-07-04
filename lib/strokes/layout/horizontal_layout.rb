@@ -3,11 +3,11 @@ class Strokes::Layout::HorizontalLayout
 
   attr_accessor :proportions, :panels
 
-  def initialize(proportions = [], datasources = [])
-    raise "Panels should have a datasource" if proportions.size != datasources.size
+  def initialize(proportions = [], panels = [])
+    raise 'Proportions for all panels are required' if proportions.size != panels.size
 
     @proportions = proportions
-    @panels = proportions.zip(datasources).map { |_, ds| Strokes::Panel.new(0, 0, ds) }
+    @panels = panels
   end
 
   def draw(max_width, max_height)
@@ -17,7 +17,7 @@ class Strokes::Layout::HorizontalLayout
       panel.top_left_x = current_x
       panel.top_left_y = 0
       panel.width = width - 1
-      panel.height = max_height - 1
+      panel.height = max_height
 
       current_x = width
 

@@ -3,7 +3,7 @@ class Strokes::Panel
 
   attr_accessor :width, :height, :datasource, :options
 
-  def initialize(width, height, datasource, options = default_options)
+  def initialize(datasource, width = 0, height = 0, options = default_options)
     @width, @height, @datasource, @options = width, height, datasource, options
   end
 

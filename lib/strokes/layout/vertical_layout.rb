@@ -3,11 +3,11 @@ class Strokes::Layout::VerticalLayout
 
   attr_accessor :proportions, :panels
 
-  def initialize(proportions = [], datasources = [])
-    raise "Panels should have a datasource" if proportions.size != datasources.size
+  def initialize(proportions = [], panels = [])
+    raise 'Proportions for all panels are required' if proportions.size != panels.size
 
     @proportions = proportions
-    @panels = proportions.zip(datasources).map { |_, ds| Strokes::Panel.new(0, 0, ds) }
+    @panels = panels
   end
 
   def draw(max_width, max_height)
