@@ -1,7 +1,19 @@
 RSpec.describe Strokes::Panel do
   let(:window) { Strokes::Window.new }
 
-  it 'draw a layout' do
+  xit 'draw a horizontal layout' do
+    ds_list = Strokes::DataSource::ListDataSource.new(["Susana Alvarado", "Carlos Soria", "Noel Soria"])
+    ds_list_2 = Strokes::DataSource::ListDataSource.new(["Update Alvarado", "Update Soria"])
+    ds_hash = Strokes::DataSource::HashDataSource.new(name: "Carlos Soria", edad: "37 años", direccion: "Av Iman 580", esposa: "Susana Alvarado")
+
+    horizontal_layout = Strokes::Layout::HorizontalLayout.new([30, 30, 40], [ds_list, ds_list_2, ds_hash])
+
+    window.add_panel horizontal_layout, 0, 0
+
+    window.open
+  end
+
+  xit 'draw a vertical layout' do
     ds_list = Strokes::DataSource::ListDataSource.new(["Susana Alvarado", "Carlos Soria", "Noel Soria"])
     ds_hash = Strokes::DataSource::HashDataSource.new(name: "Carlos Soria", edad: "37 años", direccion: "Av Iman 580", esposa: "Susana Alvarado")
 
