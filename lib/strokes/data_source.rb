@@ -1,7 +1,4 @@
-class Strokes::DataSource
-  def draw(width, height)
-    height.times.map do |row|
-      '.' * width
-    end
-  end
+module Strokes::DataSource
 end
+
+require 'strokes/data_source/list_data_source'
