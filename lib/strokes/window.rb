@@ -29,15 +29,29 @@ class Strokes::Window
       end
     end
 
+    rows.unshift(" width: #{win.maxx} height: #{win.maxy}")
+
     rows
   end
 
   def max_width
-    80 # win.maxx
+    win.maxx - 1
   end
 
   def max_height
-    50 # win.maxy
+    win.maxy - 1
+  end
+
+  def update
+    win.setpos(0, 0)
+
+    draw.each do |line|
+      win << line
+      clrtoeol
+      win << "\n"
+    end
+
+    win.refresh
   end
 
   def open
@@ -49,9 +63,27 @@ class Strokes::Window
     init_pair(1, 1, 0)
 
     @win = Curses::Window.new(0, 0, 1, 2)
+
+    input_loop
+  ensure
+    close
   end
 
   def close
     close_screen
+  end
+
+  def input_loop
+    @mode = :none
+
+    loop do
+      update
+
+      char = @win.getch.to_s
+
+      case char
+      when 'q' then exit(0)
+      end
+    end
   end
 end
