@@ -2,11 +2,12 @@ class Strokes::Window
   include Curses
   include Strokes::Role::Positionable
 
-  attr_reader :win, :panels
+  attr_reader :win, :panels, :prompt
 
-  def initialize(width = 0, height = 0)
+  def initialize(width: 0, height: 0, prompt: ' > ')
     @width = width
     @height = height
+    @prompt = prompt
     @panels = []
   end
 
@@ -43,13 +44,17 @@ class Strokes::Window
   end
 
   def update
-    win.setpos(0, 0)
+    win.setpos 0, 0
 
     draw.each do |line|
       win << line
-      clrtoeol
+      win.clrtoeol
       win << "\n"
     end
+
+    # print prompt
+    win.setpos max_height, 0
+    win.addstr prompt
 
     win.refresh
   end
@@ -74,16 +79,108 @@ class Strokes::Window
   end
 
   def input_loop
-    @mode = :none
+    @input = ''
 
     loop do
       update
 
-      char = @win.getch.to_s
-
+      char = win.getch.to_s
       case char
-      when 'q' then exit(0)
+      when '27[A' # Up
+      when '27[B' # Down
+      when '27[C' # Right
+      when '27[D' # Left
+      when '127' # Delete
+        @input = @input[0..-2]
+      when '27' # Esc
+        set_normal_mode
+      when '10' # ENTER
+        set_normal_mode
+
+        process_user_input
+
+        @input = ''
+      else
+        next if char.is_a? Integer
+
+        @input += char
+
+        # TODO: agregar recomendaciones de comandos en el status bar
       end
+
+      display_status_bar
     end
+  end
+
+  def display_status_bar
+    if @input.start_with? '/'
+      set_search_mode
+    elsif @input.start_with? ':'
+      set_command_mode
+    end
+
+    win.setpos max_height, prompt.size
+    win.attron(color_pair(1)) { win << @input }
+    win.clrtoeol
+
+    # status message
+    status_msg = mode
+    status_msg += " | #{status}" unless status.empty?
+
+    win.setpos max_height, max_width - status_msg.size - 2
+    win.attron(color_pair(1)) { win << status_msg }
+    win.clrtoeol
+  end
+
+  def process_user_input
+    if @input.start_with? ':'
+      # command mode
+      process_command @input[1..]
+    elsif @input.start_with? '/'
+      # search mode
+      process_search @input[1..]
+    else
+      set_status 'unable to process command'
+    end
+  end
+
+  def process_search(value)
+  end
+
+  def process_command(value)
+    case value
+    when /^(q|quit|exit)$/
+      exit(0)
+    end
+  end
+
+  def status
+    @status ||= ''
+  end
+
+  def set_status(value)
+    @status = value
+  end
+
+  def clear_status
+    @status = ''
+  end
+
+  def set_search_mode
+    @mode = 'search mode'
+  end
+
+  def set_command_mode
+    @mode = 'command mode'
+    clear_status
+  end
+
+  def set_normal_mode
+    @mode = 'normal mode'
+    clear_status
+  end
+
+  def mode
+    @mode ||= 'normal mode'
   end
 end
