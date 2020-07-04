@@ -3,8 +3,8 @@ class Strokes::Panel
 
   attr_accessor :datasource, :options
 
-  def initialize(datasource, width = 0, height = 0, options = default_options)
-    @width, @height, @datasource, @options = width, height, datasource, options
+  def initialize(datasource, width: 0, height: 0, options: default_options)
+    @width, @height, @datasource, @options = width, height, datasource, default_options.merge(options)
   end
 
   def draw(max_width = 0, max_height = 0)
@@ -40,6 +40,8 @@ class Strokes::Panel
 
   def default_options
     {
+      title: '',
+      title_position: :left,
       has_border: true,
       corner_char: '+',
       vertical_border_char: '|',
@@ -57,7 +59,22 @@ class Strokes::Panel
   end
 
   def top_border
-    [corner_char + (horizontal_top_border_char * (width-2)) + corner_char]
+    if title.empty?
+      [corner_char + (horizontal_top_border_char * (width-2)) + corner_char]
+    else
+      padded_title = " #{title} "
+      title_padding_size = 1
+      bar_title = case title_position
+                  when :left
+                    (horizontal_top_border_char * title_padding_size) + padded_title.ljust(width - 2 - title_padding_size, horizontal_top_border_char)
+                  when :right
+                    padded_title.rjust(width - 2 - title_padding_size, horizontal_top_border_char) + (horizontal_top_border_char * title_padding_size)
+                  when :center
+                    padded_title.center(width-2, horizontal_top_border_char)
+                  end
+
+      [corner_char + bar_title + corner_char]
+    end
   end
 
   def bottom_border

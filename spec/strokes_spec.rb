@@ -77,9 +77,9 @@ RSpec.describe Strokes do
     ds_list = Strokes::DataSource::ListDataSource.new(["Susana Alvarado", "Carlos Soria", "Noel Soria"])
     ds_hash = Strokes::DataSource::HashDataSource.new(name: "Carlos Soria", edad: "37 años", direccion: "Av Iman 580", esposa: "Susana Alvarado")
 
-    panel_1 = Strokes::Panel.new(ds_list, 20, 7)
-    panel_2 = Strokes::Panel.new(ds_list ,20, 7)
-    panel_3 = Strokes::Panel.new(ds_hash, 41, 7)
+    panel_1 = Strokes::Panel.new(ds_list, width: 20, height: 7, options: {title: 'uno', title_position: :left})
+    panel_2 = Strokes::Panel.new(ds_list ,width: 20, height: 7, options: {title: 'dos', title_position: :right})
+    panel_3 = Strokes::Panel.new(ds_hash, width: 41, height: 7, options: {title: 'tres', title_position: :center})
 
     window.add_panel panel_1, 0, 0
     window.add_panel panel_2, 21, 0
