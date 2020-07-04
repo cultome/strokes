@@ -4,7 +4,9 @@ class Strokes::Window
 
   attr_reader :win, :panels
 
-  def initialize
+  def initialize(width = 0, height = 0)
+    @width = width
+    @height = height
     @panels = []
   end
 
@@ -60,7 +62,7 @@ class Strokes::Window
 
     init_pair(1, 1, 0)
 
-    @win = Curses::Window.new(0, 0, 0, 0)
+    @win = Curses::Window.new(width, height, 0, 0)
 
     input_loop
   ensure

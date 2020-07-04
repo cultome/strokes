@@ -1,19 +1,47 @@
 RSpec.describe Strokes do
   let(:window) { Strokes::Window.new }
 
-  #it 'draw a composed layout' do
-    #ds_list_1 = Strokes::DataSource::ListDataSource.new(["Susana Alvarado", "Carlos Soria", "Noel Soria"])
-    #ds_list_2 = Strokes::DataSource::ListDataSource.new(["Update Alvarado", "Update Soria"])
-    #ds_hash_1 = Strokes::DataSource::HashDataSource.new(name: "Carlos Soria", edad: "37 años", direccion: "Av Iman 580", esposa: "Susana Alvarado")
-    #ds_hash_2 = Strokes::DataSource::HashDataSource.new(name: "Carlos Soria", edad: "37 años", direccion: "Av Iman 580", esposa: "Susana Alvarado")
+  it 'draw a composed horizontal layout' do
+    ds_list_1 = Strokes::DataSource::ListDataSource.new(["uno", "dos", "tres"])
+    ds_list_2 = Strokes::DataSource::ListDataSource.new(["a", "be", "ce"])
+    ds_hash_1 = Strokes::DataSource::HashDataSource.new(name: "Carlos Soria", edad: "37 años", direccion: "Av Iman 580", esposa: "Susana Alvarado")
+    ds_hash_2 = Strokes::DataSource::HashDataSource.new(name: "Noel Soria", edad: "10 años", direccion: "Av Iman 580")
 
-    #vertical_layout = Strokes::Layout::VerticalLayout.new([30, 70], [ds_list, ds_hash])
-    #horizontal_layout = Strokes::Layout::HorizontalLayout.new([30, 30, 40], [ds_list, ds_list_2, ds_hash])
+    panel_1 = Strokes::Panel.new(ds_list_1)
+    panel_2 = Strokes::Panel.new(ds_list_2)
+    panel_3 = Strokes::Panel.new(ds_hash_1)
+    panel_4 = Strokes::Panel.new(ds_hash_2)
 
-    #window.add_panel horizontal_layout, 0, 0
+    h1 = Strokes::Layout::VerticalLayout.new([30, 70], [panel_1, panel_3])
+    h2 = Strokes::Layout::VerticalLayout.new([50, 50], [panel_2, panel_4])
 
-    #window.open
-  #end
+    vertical_layout = Strokes::Layout::HorizontalLayout.new([40, 60], [h1, h2])
+
+    window.add_panel vertical_layout, 0, 0
+
+    window.open
+  end
+
+  it 'draw a composed vertical layout' do
+    ds_list_1 = Strokes::DataSource::ListDataSource.new(["uno", "dos", "tres"])
+    ds_list_2 = Strokes::DataSource::ListDataSource.new(["a", "be", "ce"])
+    ds_hash_1 = Strokes::DataSource::HashDataSource.new(name: "Carlos Soria", edad: "37 años", direccion: "Av Iman 580", esposa: "Susana Alvarado")
+    ds_hash_2 = Strokes::DataSource::HashDataSource.new(name: "Noel Soria", edad: "10 años", direccion: "Av Iman 580")
+
+    panel_1 = Strokes::Panel.new(ds_list_1)
+    panel_2 = Strokes::Panel.new(ds_list_2)
+    panel_3 = Strokes::Panel.new(ds_hash_1)
+    panel_4 = Strokes::Panel.new(ds_hash_2)
+
+    h1 = Strokes::Layout::HorizontalLayout.new([30, 70], [panel_1, panel_3])
+    h2 = Strokes::Layout::HorizontalLayout.new([50, 50], [panel_2, panel_4])
+
+    vertical_layout = Strokes::Layout::VerticalLayout.new([20, 80], [h1, h2])
+
+    window.add_panel vertical_layout, 0, 0
+
+    window.open
+  end
 
   it 'draw a horizontal layout' do
     ds_list_1 = Strokes::DataSource::ListDataSource.new(["Susana Alvarado", "Carlos Soria", "Noel Soria"])

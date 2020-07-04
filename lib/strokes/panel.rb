@@ -1,7 +1,7 @@
 class Strokes::Panel
   include Strokes::Role::Positionable
 
-  attr_accessor :width, :height, :datasource, :options
+  attr_accessor :datasource, :options
 
   def initialize(datasource, width = 0, height = 0, options = default_options)
     @width, @height, @datasource, @options = width, height, datasource, options
@@ -43,7 +43,8 @@ class Strokes::Panel
       has_border: true,
       corner_char: '+',
       vertical_border_char: '|',
-      horizontal_border_char: '-',
+      horizontal_top_border_char: '=',
+      horizontal_bottom_border_char: '-',
       top_padding_char: ' ',
       bottom_padding_char: ' ',
       left_padding_char: ' ',
@@ -56,11 +57,11 @@ class Strokes::Panel
   end
 
   def top_border
-    [corner_char + (horizontal_border_char * (width-2)) + corner_char]
+    [corner_char + (horizontal_top_border_char * (width-2)) + corner_char]
   end
 
   def bottom_border
-    top_border
+    [corner_char + (horizontal_bottom_border_char * (width-2)) + corner_char]
   end
 
   def method_missing(name, *args)

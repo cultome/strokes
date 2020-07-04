@@ -21,7 +21,7 @@ class Strokes::Layout::HorizontalLayout
 
       current_x = width
 
-      panel.draw
+      panel.draw(width, max_height)
     end
 
     rows

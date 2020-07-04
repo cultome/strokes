@@ -21,7 +21,7 @@ class Strokes::Layout::VerticalLayout
 
       current_y = height
 
-      panel.draw
+      panel.draw(max_width, height)
     end
   end
 end
