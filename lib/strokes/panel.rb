@@ -7,7 +7,7 @@ class Strokes::Panel
     @width, @height, @datasource, @options = width, height, datasource, options
   end
 
-  def draw
+  def draw(max_width = 0, max_height = 0)
     content_width = width - (((has_border ? 1 : 0) * 2) + (left_padding + right_padding))
     content_height = height - (((has_border ? 1 : 0) * 2) + (top_padding + bottom_padding))
 

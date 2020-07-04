@@ -19,11 +19,11 @@ class Strokes::Window
     rows = max_height.times.map { ' ' * max_width }
 
     panels.each_with_object(rows) do |panel, acc|
-      lines = panel.draw
+      lines = panel.draw(max_width-1, max_height)
       lines.each_with_index do |line, idy|
         winline = acc[panel.top_left_y + idy]
 
-        winline = winline[0..panel.top_left_x] + line + winline[panel.top_left_x + line.size + 1..]
+        winline = winline[0..panel.top_left_x] + line + (winline[panel.top_left_x + line.size + 1..] || '')
 
         acc[panel.top_left_y + idy] = winline
       end
