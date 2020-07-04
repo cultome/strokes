@@ -1,8 +1,10 @@
 class Strokes::Panel
-  attr_accessor :width, :height, :top_left_x, :top_left_y
+  include Strokes::Role::Positionable
 
-  def initialize(width, height, top_left_x, top_left_y)
-    @width, @height, @top_left_x, @top_left_y = width, height, top_left_x, top_left_y
+  attr_accessor :width, :height
+
+  def initialize(width, height)
+    @width, @height = width, height
   end
 
   def draw

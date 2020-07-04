@@ -1,15 +1,17 @@
 class Strokes::Window
   include Curses
+  include Strokes::Role::Positionable
 
-  attr_reader :win, :panels, :top_left_x, :top_left_y
+  attr_reader :win, :panels
 
   def initialize
-    @top_left_x = 1
-    @top_left_y = 2
     @panels = []
   end
 
-  def add_panel(panel)
+  def add_panel(panel, x, y)
+    panel.top_left_x = x
+    panel.top_left_y = y
+
     panels << panel
   end
 
@@ -46,7 +48,7 @@ class Strokes::Window
 
     init_pair(1, 1, 0)
 
-    @win = Curses::Window.new(0, 0, top_left_x, top_left_y)
+    @win = Curses::Window.new(0, 0, 1, 2)
   end
 
   def close
