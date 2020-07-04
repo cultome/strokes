@@ -1,6 +1,5 @@
-require "strokes/version"
+require 'curses'
 
-module Strokes
-  class Error < StandardError; end
-  # Your code goes here...
-end
+require 'strokes/version'
+require 'strokes/window'
+require 'strokes/panel'
