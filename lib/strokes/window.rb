@@ -28,10 +28,6 @@ class Strokes::Window
         acc[panel.top_left_y + idy] = winline
       end
     end
-
-    rows.unshift(" width: #{win.maxx} height: #{win.maxy}")
-
-    rows
   end
 
   def max_width
@@ -62,7 +58,7 @@ class Strokes::Window
 
     init_pair(1, 1, 0)
 
-    @win = Curses::Window.new(0, 0, 1, 2)
+    @win = Curses::Window.new(0, 0, 0, 0)
 
     input_loop
   ensure
