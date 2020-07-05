@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+
+require 'tco'
+require 'rmagick'
+
+include Magick
+
+def one
+  img = Magick::Image::read(ARGV[0]).first
+  img.each_pixel do |pixel, col, row|
+    c = [pixel.red, pixel.green, pixel.blue].map { |v| 256 * (v / 65535.0) }
+    pixel.magenta == 65535 ? print(" ") : print(" ".bg c)
+    puts if col >= img.columns - 1
+  end
+end
+
+def two
+  Catpix::print_image(
+    ARGV.first,
+    :limit_x => 1.0,
+    :limit_y => 0,
+    :center_x => true,
+    :center_y => true,
+    :bg => "white",
+    :bg_fill => true
+  )
+end
+
+def three
+  size = ARGV[1].to_i
+  image = ARGV[0]
+
+  geom = "#{size}x#{size}"
+
+  img = Image.read(image)[0]
+  img.change_geometry!(geom) { |cols, rows| img.thumbnail! cols, rows }
+  img.write('thumbnail.gif')
+end
+
+def four
+  size = ARGV[1].to_i
+  image = ARGV[0]
+
+  geom = "#{size}x#{size}"
+
+  img = Image.read(image)[0]
+  img.change_geometry!(geom) { |cols, rows| img.thumbnail! cols, rows }
+  img.each_pixel do |pixel, col, row|
+    c = [pixel.red, pixel.green, pixel.blue].map { |v| 256 * (v / 65535.0) }
+    pixel.magenta == 65535 ? print(" ") : print(" ".bg c)
+    puts if col >= img.columns - 1
+  end
+end
+
+four

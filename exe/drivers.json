@@ -1,0 +1,30 @@
+{
+  "hamilton": {
+    "Name": "Lewis Hamilton",
+    "Number": 44,
+    "Team": "Mercedes",
+    "Country": "United Kingdom",
+    "Podiums": 	151,
+    "Points": 	3431,
+    "Grands Prix entered": 	250,
+    "World Championships": 	6,
+    "Highest race finish": "1 (x84)",
+    "Highest grid position": 	1,
+    "Date of birth": "07/01/1985",
+    "Place of birth": "Stevenage, England"
+  },
+  "bottas": {
+    "Name": "Valtteri Bottas",
+    "Number": 77,
+    "Team": "Mercedes",
+    "Country": "Finland",
+    "Podiums": "45",
+    "Points": "1289",
+    "Grands Prix entered": 140,
+    "World Championships": "N/A",
+    "Highest race finish": "1 (x7)",
+    "Highest grid position": 1,
+    "Date of birth": "28/08/1989",
+    "Place of birth": "Nastola, Finland"
+  }
+}
