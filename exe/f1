@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift('./lib')
+
+require 'strokes'
+require 'json'
+
+window = Strokes::Window.new
+
+pilot = 'hamilton'
+team = 'mercedes'
+
+# pilot data
+pilot_datasheet = JSON.parse(File.read('exe/data/drivers.json'))[pilot]
+career_datasheet = JSON.parse(File.read('exe/data/career.json'))[pilot]
+
+pilot_info_ds = Strokes::DataSource::HashDataSource.new(pilot_datasheet)
+pilot_career_ds = Strokes::DataSource::HashDataSource.new(career_datasheet)
+pilot_photo_ds = Strokes::DataSource::ImageDataSource.new("exe/data/#{pilot}.jpg")
+
+pilot_info = Strokes::Panel.new(pilot_info_ds)
+pilot_career = Strokes::Panel.new(pilot_career_ds)
+pilot_photo = Strokes::Panel.new(pilot_photo_ds)
+pilot_layout = Strokes::Layout::HorizontalLayout.new([21, 29, 50], [pilot_photo, pilot_info, pilot_career])
+
+# pilot stats
+pilot_stats_rows = JSON.parse(File.read('exe/data/races.json'))[pilot].map do |row|
+  [row['career_race_id'], row['grand_prix'], row['race_date'], row['team'], row['position'], row['time_gap']]
+end.unshift(["#", "Grand Prix", "Date", "Team", "Pos", 'Time Gap']).map do |fields|
+  [5, 30, 15, 20, 5, 15].zip(fields).map { |just, val| val.to_s.ljust(just, ' ') }.join()
+end
+
+pilot_stats_ds = Strokes::DataSource::ListDataSource.new(pilot_stats_rows)
+pilot_stats = Strokes::Panel.new(pilot_stats_ds)
+
+# team data
+team_datasheet = JSON.parse(File.read('exe/data/teams.json'))[team]
+team_info_ds = Strokes::DataSource::HashDataSource.new(team_datasheet)
+team_photo_ds = Strokes::DataSource::ImageDataSource.new("exe/data/#{team}.png")
+
+team_info = Strokes::Panel.new(team_info_ds)
+team_photo = Strokes::Panel.new(team_photo_ds)
+team_layout = Strokes::Layout::HorizontalLayout.new([79, 21], [team_info, team_photo])
+
+# get all together
+page_layout = Strokes::Layout::VerticalLayout.new([30, 40, 30], [pilot_layout, pilot_stats, team_layout])
+window.add_drawable page_layout, 0, 0
+
+puts window.draw
+# window.open

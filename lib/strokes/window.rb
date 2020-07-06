@@ -2,45 +2,45 @@ class Strokes::Window
   include Curses
   include Strokes::Role::Positionable
 
-  attr_reader :win, :panels, :prompt
+  attr_reader :win, :elements, :prompt
 
   def initialize(width: 0, height: 0, prompt: ' > ')
     @width = width
     @height = height
     @prompt = prompt
-    @panels = []
+    @elements = []
   end
 
-  def add_panel(panel, x, y)
-    panel.top_left_x = x
-    panel.top_left_y = y
+  def add_drawable(element, x, y)
+    element.top_left_x = x
+    element.top_left_y = y
 
-    panels << panel
+    elements << element
   end
 
   def draw
     rows = max_height.times.map { ' ' * max_width }
 
-    panels.each_with_object(rows) do |panel, acc|
-      lines = panel.draw(max_width, max_height)
+    elements.each_with_object(rows) do |element, acc|
+      lines = element.draw(max_width, max_height)
       lines.each_with_index do |line, idy|
-        winline = acc[panel.top_left_y + idy]
+        winline = acc[element.top_left_y + idy]
 
         break if winline.nil?
 
-        winline = winline[0..panel.top_left_x] + line + (winline[panel.top_left_x + line.size + 1..] || '')
+        winline = winline[0..element.top_left_x] + line + (winline[element.top_left_x + line.size + 1..] || '')
 
-        acc[panel.top_left_y + idy] = winline
+        acc[element.top_left_y + idy] = winline
       end
     end
   end
 
   def max_width
-    win.maxx - 1
+    win.nil? ? IO.console.winsize.last : win.maxx - 1
   end
 
   def max_height
-    win.maxy - 1
+    win.nil? ? IO.console.winsize.first : win.maxy - 1
   end
 
   def update
@@ -94,6 +94,8 @@ class Strokes::Window
         @input = @input[0..-2]
       when '27' # Esc
         set_normal_mode
+
+        @input = ''
       when '10' # ENTER
         set_normal_mode
 
@@ -151,6 +153,23 @@ class Strokes::Window
     case value
     when /^(q|quit|exit)$/
       exit(0)
+    when /^sh ([\d]+)$/
+      # split horizontally
+      elem_id = $1.to_i
+      elem = elements[elem_id]
+      if elem.is_a? Strokes::Panel
+        # build a layout, insert this a new one onto it
+        new_ds = Strokes::DataSource::ListDataSource.new(["Nuevo panel", "inserta contenido aqui"])
+        new_panel = Strokes::Panel.new(new_ds, options: { full_screen: true })
+        new_layout = Strokes::Layout::HorizontalLayout.new([50, 50], [elem, new_panel])
+
+        new_layout.top_left_x = elem.top_left_x
+        new_layout.top_left_y = elem.top_left_y
+
+        elements[elem_id] = new_layout
+      else
+        set_status "invalid element ID [#{elem_id}]"
+      end
     end
   end
 

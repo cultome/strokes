@@ -1,0 +1,26 @@
+{
+  "hamilton": [
+    {"career_race_id": "230", "race_date": "2019-03-17", "grand_prix": "Melbourne", "team": "Mercedes", "position": 2, "pol": 1, "points": 18, "time_gap": "-00:20.886"},
+    {"career_race_id": "231", "race_date": "2019-03-31", "grand_prix": "Bahrain", "team": "Mercedes", "position": 1, "pol": 3, "points": 25, "time_gap": "1:34:21.295"},
+    {"career_race_id": "232", "race_date": "2019-04-14", "grand_prix": "Shanghai", "team": "Mercedes", "position": 1, "pol": 2, "points": 25, "time_gap": "1:32:06.350"},
+    {"career_race_id": "233", "race_date": "2019-04-28", "grand_prix": "Baku", "team": "Mercedes", "position": 2, "pol": 2, "points": 18, "time_gap": "-00:01.524"},
+    {"career_race_id": "234", "race_date": "2019-05-12", "grand_prix": "Catalunya", "team": "Mercedes", "position": 1, "pol": 2, "points": 26, "time_gap": "1:35:50.443"},
+    {"career_race_id": "235", "race_date": "2019-05-26", "grand_prix": "Monte Carlo", "team": "Mercedes", "position": 1, "pol": 1, "points": 25, "time_gap": "1:43:28.437"},
+    {"career_race_id": "236", "race_date": "2019-06-09", "grand_prix": "Montreal", "team": "Mercedes", "position": 1, "pol": 2, "points": 25, "time_gap": "1:29:07.084"},
+    {"career_race_id": "237", "race_date": "2019-06-23", "grand_prix": "Paul Ricard", "team": "Mercedes", "position": 1, "pol": 1, "points": 25, "time_gap": "1:24:31.198"},
+    {"career_race_id": "238", "race_date": "2019-06-30", "grand_prix": "A1 Ring", "team": "Mercedes", "position": 5, "pol": 4, "points": 10, "time_gap": "-00:22.805"},
+    {"career_race_id": "239", "race_date": "2019-07-14", "grand_prix": "Silverstone", "team": "Mercedes", "position": 1, "pol": 2, "points": 26, "time_gap": "1:21:08.452"},
+    {"career_race_id": "240", "race_date": "2019-07-28", "grand_prix": "Hockenheim", "team": "Mercedes", "position": 9, "pol": 1, "points": 2, "time_gap": "-00:19.667"},
+    {"career_race_id": "241", "race_date": "2019-08-04", "grand_prix": "Hungaroring", "team": "Mercedes", "position": 1, "pol": 3, "points": 25, "time_gap": "1:35.03.796"},
+    {"career_race_id": "242", "race_date": "2019-09-01", "grand_prix": "Spa-Francorchamps", "team": "Mercedes", "position": 2, "pol": 3, "points": 18, "time_gap": "-00:00.981"},
+    {"career_race_id": "243", "race_date": "2019-09-08", "grand_prix": "Monza", "team": "Mercedes", "position": 3, "pol": 2, "points": 16, "time_gap": "-00:35.199"},
+    {"career_race_id": "244", "race_date": "2019-09-22", "grand_prix": "Singapore", "team": "Mercedes", "position": 4, "pol": 2, "points": 12, "time_gap": "-00:04.608"},
+    {"career_race_id": "245", "race_date": "2019-09-29", "grand_prix": "Sochi", "team": "Mercedes", "position": 1, "pol": 2, "points": 26, "time_gap": "1:33:38.992"},
+    {"career_race_id": "246", "race_date": "2019-10-13", "grand_prix": "Suzuka", "team": "Mercedes", "position": 3, "pol": 4, "points": 16, "time_gap": "-00:13.858"},
+    {"career_race_id": "247", "race_date": "2019-10-27", "grand_prix": "Mexico City", "team": "Mercedes", "position": 1, "pol": 3, "points": 25, "time_gap": "1:36:48.904"},
+    {"career_race_id": "248", "race_date": "2019-11-03", "grand_prix": "Austin", "team": "Mercedes", "position": 2, "pol": 5, "points": 18, "time_gap": "-00:04.148"},
+    {"career_race_id": "249", "race_date": "2019-11-17", "grand_prix": "Interlagos", "team": "Mercedes", "position": 7, "pol": 3, "points": 6, "time_gap": "-00:11.139"},
+    {"career_race_id": "250", "race_date": "2019-12-01", "grand_prix": "Abu Dhabi", "team": "Mercedes", "position": 1, "pol": 1, "points": 26, "time_gap": "1:34.05.715"},
+    {"career_race_id": "251", "race_date": "2020-07-05", "grand_prix": "A1 Ring", "team": "Mercedes", "position": 4, "pol": 5, "points": 12, "time_gap": "-00:05.689"}
+  ]
+}

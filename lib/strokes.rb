@@ -1,4 +1,7 @@
 require 'curses'
+require 'tco'
+require 'rmagick'
+require 'io/console'
 
 require 'strokes/version'
 require 'strokes/role'

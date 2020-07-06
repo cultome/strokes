@@ -1,6 +1,16 @@
 RSpec.describe Strokes do
   let(:window) { Strokes::Window.new }
 
+  it 'add an horizontal split to a splitted panel'
+
+  it 'horizontally split a panel' do
+    ds_home = Strokes::DataSource::ListDataSource.new(['Welcome!', 'To horizontally split window use:', ':sh 0'])
+    home = Strokes::Panel.new(ds_home, options: {full_screen: true})
+
+    window.add_drawable home, 0, 0
+    window.open
+  end
+
   it 'draw a composed horizontal layout' do
     ds_list_1 = Strokes::DataSource::ListDataSource.new(["uno", "dos", "tres"])
     ds_list_2 = Strokes::DataSource::ListDataSource.new(["a", "be", "ce"])
@@ -17,7 +27,7 @@ RSpec.describe Strokes do
 
     vertical_layout = Strokes::Layout::HorizontalLayout.new([40, 60], [h1, h2])
 
-    window.add_panel vertical_layout, 0, 0
+    window.add_drawable vertical_layout, 0, 0
 
     window.open
   end
@@ -38,7 +48,7 @@ RSpec.describe Strokes do
 
     vertical_layout = Strokes::Layout::VerticalLayout.new([20, 80], [h1, h2])
 
-    window.add_panel vertical_layout, 0, 0
+    window.add_drawable vertical_layout, 0, 0
 
     window.open
   end
@@ -54,7 +64,7 @@ RSpec.describe Strokes do
 
     horizontal_layout = Strokes::Layout::HorizontalLayout.new([30, 30, 40], [panel_1, panel_2, panel_3])
 
-    window.add_panel horizontal_layout, 0, 0
+    window.add_drawable horizontal_layout, 0, 0
 
     window.open
   end
@@ -68,7 +78,7 @@ RSpec.describe Strokes do
 
     vertical_layout = Strokes::Layout::VerticalLayout.new([30, 70], [panel_1, panel_2])
 
-    window.add_panel vertical_layout, 0, 0
+    window.add_drawable vertical_layout, 0, 0
 
     window.open
   end
@@ -81,9 +91,9 @@ RSpec.describe Strokes do
     panel_2 = Strokes::Panel.new(ds_list ,width: 20, height: 7, options: {title: 'dos', title_position: :right})
     panel_3 = Strokes::Panel.new(ds_hash, width: 41, height: 7, options: {title: 'tres', title_position: :center})
 
-    window.add_panel panel_1, 0, 0
-    window.add_panel panel_2, 21, 0
-    window.add_panel panel_3, 0, 7
+    window.add_drawable panel_1, 0, 0
+    window.add_drawable panel_2, 21, 0
+    window.add_drawable panel_3, 0, 7
 
     window.open
   end

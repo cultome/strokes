@@ -8,18 +8,21 @@ class Strokes::Panel
   end
 
   def draw(max_width = 0, max_height = 0)
-    content_width = width - (((has_border ? 1 : 0) * 2) + (left_padding + right_padding))
-    content_height = height - (((has_border ? 1 : 0) * 2) + (top_padding + bottom_padding))
+    my_max_width = full_screen ? max_width - 1 : width
+    my_max_height = full_screen ? max_height - 1 : height
+
+    content_width = my_max_width - (((has_border ? 1 : 0) * 2) + (left_padding + right_padding))
+    content_height = my_max_height - (((has_border ? 1 : 0) * 2) + (top_padding + bottom_padding))
 
     content = datasource.draw(content_width, content_height).map { |line| prepare_content line }
 
     screen = []
 
-    screen << top_border if has_border
+    screen << top_border(my_max_width) if has_border
     screen << prepare_content(top_padding_char * content_width)
     content.each { |line| screen << line }
     screen << prepare_content(bottom_padding_char * content_width)
-    screen << bottom_border if has_border
+    screen << bottom_border(my_max_width) if has_border
 
     screen.flatten
   end
@@ -40,6 +43,7 @@ class Strokes::Panel
 
   def default_options
     {
+      full_screen: false,
       title: '',
       title_position: :left,
       has_border: true,
@@ -58,7 +62,7 @@ class Strokes::Panel
     }
   end
 
-  def top_border
+  def top_border(width)
     if title.empty?
       [corner_char + (horizontal_top_border_char * (width-2)) + corner_char]
     else
@@ -77,7 +81,7 @@ class Strokes::Panel
     end
   end
 
-  def bottom_border
+  def bottom_border(width)
     [corner_char + (horizontal_bottom_border_char * (width-2)) + corner_char]
   end
 
